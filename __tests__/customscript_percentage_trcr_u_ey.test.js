@@ -9,10 +9,6 @@ describe('customscript_percentage_trcr_u_ey beforeSubmit', () => {
 		jest.clearAllMocks();
 	});
 
-    it ('ETL - core DI process used in DE and BI to pull raw data from dif. sources', () => {
-        expect(true).toBeTruthy();
-    })
-
 	it('uses default values 10, 10, 150 on CREATE', () => {
 		const getValue = jest
 			.fn()
