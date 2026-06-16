@@ -23,7 +23,6 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime'], (record, log, search, run
         }
     }
 
-
     function processCommission(_rec) {
         let _cummulativeAmt
         const _totalAmt = Number(_rec.getValue(_FIELD_IDS._total))
@@ -36,37 +35,37 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime'], (record, log, search, run
                 id: _poSubmitted,
                 columns: ['fxamount']
             }).fxamount
+        }
+        if (Math.abs(_poAmt - _totalAmt) > _EPSILON) {
+        }
+        const _isComm = parseFloat(
+            String(search.lookupFields({
+                type: 'customer',
+                id: _rec.getValue('entity'),
+                columns: ['custentity_commission_percentage']
+            }).custentity_commission_percentage).replace('%', ''))
 
-            if (Math.abs(_poAmt - _totalAmt) > _EPSILON) {
+        log.debug('Cx Comm', { _isComm: _isComm, _soComm, _ovgValue, _totalAmt })
+        if ((_isComm)) {
+            _cummulativeAmt = ((_isComm) / 100) * _totalAmt
+            if (_ovgValue) {
+                _cummulativeAmt += _ovgValue
             }
-            const _isComm = parseFloat(
-                String(search.lookupFields({
-                    type: 'customer',
-                    id: _rec.getValue('entity'),
-                    columns: ['custentity_commission_percentage']
-                }).custentity_commission_percentage).replace('%', ''))
-
-            log.debug('Cx Comm', { _isComm: _isComm, _soComm, _ovgValue, _totalAmt })
-            if ((_isComm)) {
-                _cummulativeAmt = ((_isComm) / 100) * _totalAmt
+            log.debug('Cx Cummulative Commission', _cummulativeAmt)
+        } else {
+            if (_soComm) {
+                _cummulativeAmt = (_soComm / 100) * _totalAmt
                 if (_ovgValue) {
                     _cummulativeAmt += _ovgValue
                 }
-                log.debug('Cx Cummulative Commission', _cummulativeAmt)
-            } else {
-                if (_soComm) {
-                    _cummulativeAmt = (_soComm / 100) * _totalAmt
-                    if (_ovgValue) {
-                        _cummulativeAmt += _ovgValue
-                    }
-                    log.debug('SO Cummulative Commission', _cummulativeAmt)
-                } else if (_ovgValue) {
-                    _cummulativeAmt = _ovgValue
-                    log.debug('Ovg Cummulative Commission', _cummulativeAmt)
-                }
+                log.debug('SO Cummulative Commission', _cummulativeAmt)
+            } else if (_ovgValue) {
+                _cummulativeAmt = _ovgValue
+                log.debug('Ovg Cummulative Commission', _cummulativeAmt)
             }
         }
     }
+
     return {
         afterSubmit
     }
