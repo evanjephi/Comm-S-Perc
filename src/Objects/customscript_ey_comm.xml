@@ -1,0 +1,9 @@
+<clientscript scriptid="customscript_ey_percentage_tracker_cs">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>Percentage Tracker</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <scriptfile>[/SuiteScripts/Percentage Tracker CS EY.js]</scriptfile>
+</clientscript>
