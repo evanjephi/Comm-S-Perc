@@ -36,4 +36,3 @@ describe('Sample test with provided record module stubs', () => {
 	});
 });
 
-
