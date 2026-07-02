@@ -58,9 +58,9 @@ for (const t of withCommission) {
 
 console.log("4) Unique transactions:", uniqueByRepAndAmount.length);
 
-// -------------------------------------------------------
-// 5) Handy helper functions you can reuse in SuiteScripts
-// -------------------------------------------------------
+
+// 5)  functionsSuiteScripts
+
 function safeNumber(value, fallback = 0) {
 	const n = Number(value);
 	return Number.isNaN(n) ? fallback : n;
@@ -84,10 +84,8 @@ const anaTotal = sumBy(grouped.Ana || [], (t) => t.commission);
 
 console.log("5) Ana total commission:", anaTotal);
 
-// ----------------------
-// 6) Your practice tasks
-// ----------------------
-// Task 1: Add a new transaction for "Dina" and include it in the summary.
+
+// Task 1: Add a new transaction for "D" and include it in the summary.
 // Task 2: Add a rule: if amount > 1000, add 15 overage to that transaction's commission.
 // Task 3: Create topRep variable with the highest total commission.
 // Task 4: Return only reps with total sales >= 1000.
